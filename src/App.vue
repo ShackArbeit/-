@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import SideBarOne from './components/LayoutPart/SideBarOne.vue';
 import SideBarTwo from './components/LayoutPart/SideBarTwo.vue';
 import ProfileCard from './components/CardPart/ProfileCard.vue';
@@ -6,11 +7,18 @@ import LinkCard from './components/CardPart/LinkCard.vue';
 import ShowContentBlock from './components/LayoutPart/ShowContentBlock.vue'
 import PreviewButton from './components/OutputPart/PreviewButton.vue'
 import InputBar from './components/OutputPart/InputBar.vue';
+import SideBarTwoContent from './components/LayoutPart/SideBarTwoContent.vue';
 //  Pinia Store 部分
 import { showCellPhoneStore } from './stores/showCellPhone';
 const store = showCellPhoneStore(); 
 console.log('showMainPart :',store.showMainPart)
 
+
+const isBottomSheetVisible = ref(false);
+const showBottomSheet = () => {
+  isBottomSheetVisible.value = true;
+  console.log('已經向上滑動了')
+};
 
 
 
@@ -23,7 +31,7 @@ console.log('showMainPart :',store.showMainPart)
           <SideBarOne />
       </div> 
       <div class="blockTwo">
-        <SideBarTwo />  
+          <SideBarTwo />  
       </div>
       <div class="blockThree">
         <div class="mobilSizeTopContainer" >
@@ -38,13 +46,15 @@ console.log('showMainPart :',store.showMainPart)
         <div class="subBlockThree" >
             <ProfileCard />
             <LinkCard/> 
-            <div class="showBarTwo">
+            <div class="showBarTwo" @click="showBottomSheet">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                    <path d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z" fill="#FFF8F8"/>
               </svg>
             </div>
         </div>
+        <SideBarTwoContent :isVisible="isBottomSheetVisible" @update:isVisible="isBottomSheetVisible = $event" />
       </div>
+      
       <div class="blockFour">
          <ShowContentBlock />
       </div>
@@ -271,7 +281,6 @@ html, body {
     top:50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border:2px solid red;
   }
 }
 

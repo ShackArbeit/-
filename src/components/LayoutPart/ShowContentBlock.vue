@@ -36,7 +36,7 @@
 
   <div class="container2" >
        <div class="closeIcon"  @click="closeCellPhoneButton">
-              <span class="material-symbols-outlined" style="font-size: 45px;">
+              <span class="material-symbols-outlined" style="font-size: 35px;">
                   close
               </span>
         </div>

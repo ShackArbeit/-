@@ -1,9 +1,9 @@
 <script setup>
 
-import { defineProps, defineEmits } from 'vue';
+import { defineEmits } from 'vue';
 
 const props = defineProps({
-  isVisible: Boolean
+   isVisible: Boolean
 });
 
 const emit = defineEmits(['update:isVisible']);
@@ -11,6 +11,15 @@ const emit = defineEmits(['update:isVisible']);
 const hideBottomSheet = () => {
   emit('update:isVisible', false);
 };
+
+import { useLinkCardStore } from '@/stores/AddLinkCard';
+
+const linkCardStore = useLinkCardStore();
+
+function addLinkCard() {
+  linkCardStore.addLinkCard();
+  console.log('確認已經新增卡片了!')
+}
 
 </script>
 
@@ -30,7 +39,7 @@ const hideBottomSheet = () => {
                 </div>
                 <p class="iconDec">文字</p>
              </div>
-             <div class="Icons" >
+             <div class="Icons" @click="addLinkCard">
                 <div class="IconsDiv">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <mask id="mask0_59209_7068" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
@@ -94,7 +103,7 @@ const hideBottomSheet = () => {
                         </div>
                         <p class="iconDec">文字</p>
                 </div>
-                <div class="Icons" >
+                <div class="Icons"  @click="addLinkCard">
                     <div class="IconsDiv">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <mask id="mask0_59209_7068" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">

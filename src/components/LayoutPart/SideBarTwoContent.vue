@@ -1,17 +1,15 @@
 <script setup>
-
-import { defineEmits } from 'vue';
-
+// 這裡定義 Emit ，將改變 isVisible 的值送到 App.vue 中的 <div class='sidebar-two-content'> 裡面
+// 的  <SideBarTwoContent  :isVisible="isBottomSheetVisible" @update:isVisible="isBottomSheetVisible = $event"/>
+import { defineEmits,ref } from 'vue';
 const props = defineProps({
    isVisible: Boolean
 });
-
 const emit = defineEmits(['update:isVisible']);
-
 const hideBottomSheet = () => {
   emit('update:isVisible', false);
 };
-
+// 使用 Pinia Store 部分
 import { useLinkCardStore } from '@/stores/AddLinkCard';
 
 const linkCardStore = useLinkCardStore();
@@ -76,8 +74,8 @@ function addLinkCard() {
         <div class="bottom-sheet-content">
             <div style="display:flex;align-items: center;">
                     <div >
-                        <span class="material-symbols-outlined" style="font-size: 35px;" @click="hideBottomSheet">
-                        close
+                        <span class="material-symbols-outlined" style="font-size:35px;cursor:pointer" @click="hideBottomSheet">
+                          close
                         </span>
                     </div>
                     <div class="blockPart">
@@ -103,7 +101,7 @@ function addLinkCard() {
                         </div>
                         <p class="iconDec">文字</p>
                 </div>
-                <div class="Icons"  @click="addLinkCard">
+                <div class="Icons" @click="addLinkCard"  >
                     <div class="IconsDiv">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <mask id="mask0_59209_7068" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
@@ -170,8 +168,10 @@ function addLinkCard() {
     }
     .IconsDiv{
        margin-bottom:-1.5rem;
+    }
+   
 }
-}
+
 @media(max-width:768px){
     .blockIconPart{
          display:none;

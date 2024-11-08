@@ -8,18 +8,23 @@ import ShowContentBlock from './components/LayoutPart/ShowContentBlock.vue'
 import PreviewButton from './components/OutputPart/PreviewButton.vue'
 import InputBar from './components/OutputPart/InputBar.vue';
 import SideBarTwoContent from './components/LayoutPart/SideBarTwoContent.vue';
-//  Pinia Store 部分
+
+//  Pinia Store 關於預覽手機螢幕在小尺寸下打開的按鈕的設定
+// 其中  showCellPhoneStore  在 ShowContentBlock.vue & PreviewButton.vue 中使用
 import { showCellPhoneStore } from './stores/showCellPhone';
 const store = showCellPhoneStore(); 
 console.log('showMainPart :',store.showMainPart)
+
+// 關於螢幕在小尺寸下，點擊鉛筆 Icon 後會出現從下向上的彈跳視窗的部分設定
+// 使用在SideBarTwoContent.vue 中所設定的 emit 
 const isBottomSheetVisible = ref(false);
 const showBottomSheet = () => {
   isBottomSheetVisible.value = true;
   console.log('已經向上滑動了')
 };
 
-import {useLinkCardStore} from './stores/AddLinkCard'
-
+// 使用 Pinia Store 設定關於點擊連結 Icon 後會在 SubBlockThree 中新增連結卡面的部份
+import { useLinkCardStore } from '@/stores/AddLinkCard';
 const linkCardStore = useLinkCardStore();
 const linkCards = linkCardStore.linkArray;
 
@@ -52,10 +57,14 @@ const linkCards = linkCardStore.linkArray;
                    <path d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z" fill="#FFF8F8"/>
               </svg>
             </div>
-        </div>
-        <SideBarTwoContent :isVisible="isBottomSheetVisible" @update:isVisible="isBottomSheetVisible = $event" />
+         </div>
+         <!-- 這是當縮小時跳出彈跳視窗的容易 -->
+         <div class='sidebar-two-content'>
+          <SideBarTwoContent  :isVisible="isBottomSheetVisible" @update:isVisible="isBottomSheetVisible = $event"
+          /> 
+          </div>
       </div>
-      
+        
       <div class="blockFour">
          <ShowContentBlock />
       </div>
@@ -143,6 +152,10 @@ html, body {
     overflow-x: auto;
     border:1px solid #bdc2c3;
   }
+  .sidebar-two-content {
+    display: none;
+  }
+
   .blockFour {
     width: 33.33%;
     min-height:700px;
@@ -189,6 +202,9 @@ html, body {
     height:100%;
     background:  #FEF8F7; 
     border:1px solid #bdc2c3;
+  }
+   .sidebar-two-content {
+    display: none;
   }
   .blockOne {
     width: 10.54%;
@@ -252,6 +268,9 @@ html, body {
      align-items: center;
      background: #5E5353;
      box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
+  }
+  .sidebar-two-content {
+    display: block;
   }
   .mobilSizeTopContainer{
      margin-bottom: 2rem;

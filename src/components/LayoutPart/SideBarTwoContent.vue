@@ -10,7 +10,7 @@ const hideBottomSheet = () => {
   emit('update:isVisible', false);
 };
 // 使用 Pinia Store 部分
-import { useLinkCardStore } from '@/stores/AddLinkCard';
+import { useLinkCardStore } from '@/stores/AddAndRemoveLinkCard';
 
 const linkCardStore = useLinkCardStore();
 

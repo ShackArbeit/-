@@ -1,4 +1,14 @@
 <script setup>
+// 使用 Pinia Store ，從 AddAndRemoveLinkCard.js 中引入 useLinkCardStore
+import {useLinkCardStore} from '@/stores/AddAndRemoveLinkCard'
+const linkCardStore=useLinkCardStore()
+const props=defineProps({
+   cardId:Number
+})
+function deleteCard(){
+     linkCardStore.deleteLinkCard(props.cardId)
+     console.log('已經刪除卡片了')
+}
 
 </script>
 
@@ -30,7 +40,7 @@
     </div>
     <!-- Icon 容器部分 -->
     <div class="iconContainer">
-        <div class="deleteContainer">
+        <div class="deleteContainer" @click="deleteCard">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 25 24" fill="none">
                 <mask id="mask0_59224_5529" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="24">
                 <rect x="0.5" width="24" height="24" fill="#D9D9D9"/>
@@ -125,6 +135,7 @@
     height:35px;
     width:35px;
     margin-right:1rem;
+    border:2px solid red;
 }
 .switch2{
   cursor: pointer;
